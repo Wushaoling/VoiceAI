@@ -37,7 +37,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 /**
- * ÓïÒôÊ¶±ğ¼°AI»Ø¸´
+ * è¯­éŸ³è¯†åˆ«åŠAIå›å¤
  * 
  * @author WSL
  *
@@ -47,16 +47,16 @@ public class IatDemo extends Activity implements OnClickListener {
 	
 	private static String TAG = IatDemo.class.getSimpleName();
 	
-	// ÓïÒôÌıĞ´UI
+	// è¯­éŸ³å¬å†™UI
 	private RecognizerDialog mIatDialog;
 	private EditText et = null;
 	private TextView tv = null;
 	private Toast mToast;
 	
-	// ÓÃHashMap´æ´¢ÌıĞ´½á¹û
+	// ç”¨HashMapå­˜å‚¨å¬å†™ç»“æœ
 	private HashMap<String, String> mIatResults = new LinkedHashMap<String, String>();
 		
-	// ÓïÒôºÏ³É¶ÔÏó
+	// è¯­éŸ³åˆæˆå¯¹è±¡
 	private SpeechSynthesizer mTts;
 
 	public void onCreate(Bundle savedInstanceState) {
@@ -65,17 +65,17 @@ public class IatDemo extends Activity implements OnClickListener {
 		setContentView(R.layout.activity_main);
 		SpeechUtility.createUtility(IatDemo.this, "appid=your xfyunappid");
 		initLayout();
-		// ³õÊ¼»¯ÌıĞ´Dialog£¬Èç¹ûÖ»Ê¹ÓÃÓĞUIÌıĞ´¹¦ÄÜ£¬ÎŞĞè´´½¨SpeechRecognizer
-		// Ê¹ÓÃUIÌıĞ´¹¦ÄÜ£¬Çë¸ù¾İsdkÎÄ¼şÄ¿Â¼ÏÂµÄnotice.txt,·ÅÖÃ²¼¾ÖÎÄ¼şºÍÍ¼Æ¬×ÊÔ´
+		// åˆå§‹åŒ–å¬å†™Dialogï¼Œå¦‚æœåªä½¿ç”¨æœ‰UIå¬å†™åŠŸèƒ½ï¼Œæ— éœ€åˆ›å»ºSpeechRecognizer
+		// ä½¿ç”¨UIå¬å†™åŠŸèƒ½ï¼Œè¯·æ ¹æ®sdkæ–‡ä»¶ç›®å½•ä¸‹çš„notice.txt,æ”¾ç½®å¸ƒå±€æ–‡ä»¶å’Œå›¾ç‰‡èµ„æº
 		mIatDialog = new RecognizerDialog(IatDemo.this, mInitListener);
-		//³õÊ¼»¯ÓïÒôºÏ³É
+		//åˆå§‹åŒ–è¯­éŸ³åˆæˆ
 		mTts = SpeechSynthesizer.createSynthesizer(IatDemo.this, mInitListener);
-		//³õÊ¼»¯ÌıĞ´¼°ºÏ³ÉµÄ²ÎÊı
+		//åˆå§‹åŒ–å¬å†™åŠåˆæˆçš„å‚æ•°
 		initParam();
 	}
 
 	/**
-	 * ³õÊ¼»¯²¼¾Ö
+	 * åˆå§‹åŒ–å¸ƒå±€
 	 */
 	private void initLayout() {
 		findViewById(R.id.button_voice).setOnClickListener(IatDemo.this);
@@ -86,13 +86,13 @@ public class IatDemo extends Activity implements OnClickListener {
 	}
 	
 	/**
-	 * ³õÊ¼»¯¼àÌıÆ÷
+	 * åˆå§‹åŒ–ç›‘å¬å™¨
 	 */
 	private InitListener mInitListener = new InitListener() {
 		@Override
 		public void onInit(int code) {
 			if (code != ErrorCode.SUCCESS) {
-				showTip("³õÊ¼»¯Ê§°Ü£¬´íÎóÂë£º" + code);
+				showTip("åˆå§‹åŒ–å¤±è´¥ï¼Œé”™è¯¯ç ï¼š" + code);
 			}
 		}
 	};
@@ -102,17 +102,17 @@ public class IatDemo extends Activity implements OnClickListener {
 		switch (view.getId()) {
 		case R.id.button_voice:
 			mTts.stopSpeaking();
-			// ÒÆ¶¯Êı¾İ·ÖÎö£¬ÊÕ¼¯¿ªÊ¼ÌıĞ´ÊÂ¼ş
+			// ç§»åŠ¨æ•°æ®åˆ†æï¼Œæ”¶é›†å¼€å§‹å¬å†™äº‹ä»¶
 			FlowerCollector.onEvent(IatDemo.this, "iat_recognize");
 			mIatResults.clear();
-			// ÏÔÊ¾ÌıĞ´¶Ô»°¿ò
+			// æ˜¾ç¤ºå¬å†™å¯¹è¯æ¡†
 			mIatDialog.show();
 			break;
 		case R.id.button_ok:
 			mTts.stopSpeaking();
 			String str = et.getText().toString();
 			if (0 != str.length()) {
-				tv.append("ÎÒ£º" + str + "\n");
+				tv.append("æˆ‘ï¼š" + str + "\n");
 				et.setText("");
 				getResultFromAI(str);
 			}
@@ -127,7 +127,7 @@ public class IatDemo extends Activity implements OnClickListener {
 	}
 
 	/**
-	 * ´òÓ¡ÓïÒôÊ¶±ğ½á¹û
+	 * æ‰“å°è¯­éŸ³è¯†åˆ«ç»“æœ
 	 * 
 	 * @param results
 	 */
@@ -146,13 +146,13 @@ public class IatDemo extends Activity implements OnClickListener {
 			resultBuffer.append(mIatResults.get(key));
 		}
 		String result = resultBuffer.toString();
-		tv.append("ÎÒ£º" + result + "\n");
+		tv.append("æˆ‘ï¼š" + result + "\n");
 		et.setText("");
 		getResultFromAI(result);
 	}
 
 	/**
-	 * ÌıĞ´UI¼àÌıÆ÷
+	 * å¬å†™UIç›‘å¬å™¨
 	 */
 	private RecognizerDialogListener mRecognizerDialogListener = new RecognizerDialogListener() {
 		public void onResult(RecognizerResult results, boolean isLast) {
@@ -161,14 +161,14 @@ public class IatDemo extends Activity implements OnClickListener {
 			}
 		}
 
-		// Ê¶±ğ»Øµ÷´íÎó.
+		// è¯†åˆ«å›è°ƒé”™è¯¯.
 		public void onError(SpeechError error) {
 			showTip(error.getPlainDescription(true));
 		}
 	};
 	
 	/**
-	 * ºÏ³É»Øµ÷¼àÌı¡£
+	 * åˆæˆå›è°ƒç›‘å¬ã€‚
 	 */
 	private SynthesizerListener mTtsListener = new SynthesizerListener() {
 
@@ -202,7 +202,7 @@ public class IatDemo extends Activity implements OnClickListener {
 	};
 
 	/**
-	 * »ñµÃAI½á¹û
+	 * è·å¾—AIç»“æœ
 	 * 
 	 * @param content
 	 * @return
@@ -219,7 +219,7 @@ public class IatDemo extends Activity implements OnClickListener {
 				public void onSuccess(int status, String responseString) {
 					try {
 						String result = new JSONObject(responseString).getString("text");
-						tv.append("AI£º" + result + "\n");
+						tv.append("AIï¼š" + result + "\n");
 						FlowerCollector.onEvent(IatDemo.this, "tts_play");
 						mTts.startSpeaking(result, mTtsListener);
 					} catch (JSONException e) {
@@ -242,7 +242,7 @@ public class IatDemo extends Activity implements OnClickListener {
 	}
 	
 	/**
-	 * ²ÎÊıÉèÖÃ
+	 * å‚æ•°è®¾ç½®
 	 * 
 	 * @param param
 	 * @return
@@ -250,25 +250,25 @@ public class IatDemo extends Activity implements OnClickListener {
 	private void initParam() {
 		mIatDialog.setParameter(SpeechConstant.ASR_PTT, "0");
 		mIatDialog.setListener(mRecognizerDialogListener);
-		// Çå¿Õ²ÎÊı
+		// æ¸…ç©ºå‚æ•°
 		mTts.setParameter(SpeechConstant.PARAMS, null);
-		// ¸ù¾İºÏ³ÉÒıÇæÉèÖÃÏàÓ¦²ÎÊı
+		// æ ¹æ®åˆæˆå¼•æ“è®¾ç½®ç›¸åº”å‚æ•°
 		mTts.setParameter(SpeechConstant.ENGINE_TYPE, SpeechConstant.TYPE_CLOUD);
-		// ÉèÖÃÔÚÏßºÏ³É·¢ÒôÈË
+		// è®¾ç½®åœ¨çº¿åˆæˆå‘éŸ³äºº
 		mTts.setParameter(SpeechConstant.VOICE_NAME, "xiaoyan");
-		// ÉèÖÃºÏ³ÉÓïËÙ
+		// è®¾ç½®åˆæˆè¯­é€Ÿ
 		mTts.setParameter(SpeechConstant.SPEED, "50");
-		// ÉèÖÃºÏ³ÉÒôµ÷
+		// è®¾ç½®åˆæˆéŸ³è°ƒ
 		mTts.setParameter(SpeechConstant.PITCH, "50");
-		// ÉèÖÃºÏ³ÉÒôÁ¿
+		// è®¾ç½®åˆæˆéŸ³é‡
 		mTts.setParameter(SpeechConstant.VOLUME, "50");
-		// ÉèÖÃ²¥·ÅÆ÷ÒôÆµÁ÷ÀàĞÍ
+		// è®¾ç½®æ’­æ”¾å™¨éŸ³é¢‘æµç±»å‹
 		mTts.setParameter(SpeechConstant.STREAM_TYPE, "3");
-		// ÉèÖÃ²¥·ÅºÏ³ÉÒôÆµ´ò¶ÏÒôÀÖ²¥·Å£¬Ä¬ÈÏÎªtrue
+		// è®¾ç½®æ’­æ”¾åˆæˆéŸ³é¢‘æ‰“æ–­éŸ³ä¹æ’­æ”¾ï¼Œé»˜è®¤ä¸ºtrue
 		mTts.setParameter(SpeechConstant.KEY_REQUEST_FOCUS, "true");
 
-		// ÉèÖÃÒôÆµ±£´æÂ·¾¶£¬±£´æÒôÆµ¸ñÊ½Ö§³Öpcm¡¢wav£¬ÉèÖÃÂ·¾¶Îªsd¿¨Çë×¢ÒâWRITE_EXTERNAL_STORAGEÈ¨ÏŞ
-		// ×¢£ºAUDIO_FORMAT²ÎÊıÓï¼ÇĞèÒª¸üĞÂ°æ±¾²ÅÄÜÉúĞ§
+		// è®¾ç½®éŸ³é¢‘ä¿å­˜è·¯å¾„ï¼Œä¿å­˜éŸ³é¢‘æ ¼å¼æ”¯æŒpcmã€wavï¼Œè®¾ç½®è·¯å¾„ä¸ºsdå¡è¯·æ³¨æ„WRITE_EXTERNAL_STORAGEæƒé™
+		// æ³¨ï¼šAUDIO_FORMATå‚æ•°è¯­è®°éœ€è¦æ›´æ–°ç‰ˆæœ¬æ‰èƒ½ç”Ÿæ•ˆ
 		mTts.setParameter(SpeechConstant.AUDIO_FORMAT, "wav");
 		mTts.setParameter(SpeechConstant.TTS_AUDIO_PATH, Environment.getExternalStorageDirectory() + "/msc/tts.wav");
 	}
@@ -291,8 +291,7 @@ public class IatDemo extends Activity implements OnClickListener {
 	 * @param str
 	 */
 	private void showTip(final String str) {
-		mToast.setText(str);
-		mToast.show();
+		Toast.makeText(this, str, Toast.LENGTH_LONG).show();
 	}
 
 	@Override
@@ -304,7 +303,7 @@ public class IatDemo extends Activity implements OnClickListener {
 
 	@Override
 	protected void onResume() {
-		// ¿ª·ÅÍ³¼Æ ÒÆ¶¯Êı¾İÍ³¼Æ·ÖÎö
+		// å¼€æ”¾ç»Ÿè®¡ ç§»åŠ¨æ•°æ®ç»Ÿè®¡åˆ†æ
 		FlowerCollector.onResume(IatDemo.this);
 		FlowerCollector.onPageStart(TAG);
 		super.onResume();
@@ -312,7 +311,7 @@ public class IatDemo extends Activity implements OnClickListener {
 
 	@Override
 	protected void onPause() {
-		// ¿ª·ÅÍ³¼Æ ÒÆ¶¯Êı¾İÍ³¼Æ·ÖÎö
+		// å¼€æ”¾ç»Ÿè®¡ ç§»åŠ¨æ•°æ®ç»Ÿè®¡åˆ†æ
 		FlowerCollector.onPageEnd(TAG);
 		FlowerCollector.onPause(IatDemo.this);
 		super.onPause();
